@@ -14,8 +14,29 @@ import {
   LineElement,
   Legend,
 } from "chart.js";
-import { reactive } from "vue";
 import { watch } from "vue";
+
+const customGridLinePlugin = {
+  id: "customLine",
+  beforeDraw(chart: any) {
+    const ctx = chart.ctx;
+    const y = chart.chartArea.bottom;
+
+    const linePosition = (chart.chartArea.right + chart.chartArea.left) / 2;
+
+    ctx.save();
+
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(linePosition, y);
+    ctx.lineTo(linePosition, 0);
+    ctx.stroke();
+
+    ctx.restore();
+  },
+};
 
 ChartJS.register(
   Title,
@@ -23,7 +44,8 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Legend
+  Legend,
+  customGridLinePlugin
 );
 
 interface Props {
@@ -37,6 +59,21 @@ const props = defineProps<Props>();
 const labels = ref(
   props.data.map((value) => Math.round(value.x * 1000) / 1000)
 );
+// const labels = ref(
+//   props.data.map((value) => {
+//     switch (value.x) {
+//       case 0.995:
+//         return "0.995";
+//       case 0.9999902:
+//         return "1";
+//       case 1.005:
+//         return "1.005";
+
+//       default:
+//         return '';
+//     }
+//   })
+// );
 
 const dataset = ref({
   label: `Average cost: ${props.average}; Standard deviation: ${props.deviation}`,
@@ -68,8 +105,8 @@ const chartOptions = ref({
   scales: {
     x: {
       ticks: {
-        autoSkip: true,
-        maxTicksLimit: 10,
+        maxTicksLimit: 10.1,
+        beginAtZero: true,
       },
     },
     y: {
