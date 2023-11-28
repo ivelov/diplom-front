@@ -33,6 +33,11 @@ const routes = [
         name: 'Investment Mistakes',
         component: () => import('@/pages/InvestmentMistakes.vue'),
       },
+      {
+        path: '/stability',
+        name: 'Stability',
+        component: () => import('@/pages/Stability.vue'),
+      },
     ],
   },
 ]
