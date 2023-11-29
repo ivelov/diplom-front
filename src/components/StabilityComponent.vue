@@ -41,9 +41,6 @@
         "
       ></StabilityChart>
     </v-card>
-    <p class="mt-8">
-      See also: <RouterLink to="investment-tips">investment tips</RouterLink>
-    </p>
   </v-container>
 </template>
 
@@ -65,7 +62,6 @@ const periods = ref([
   { value: "all", title: "all time" },
   { value: "years1", title: "1 year" },
   { value: "years2", title: "2 years" },
-  { value: "years3", title: "3 years" },
 ]);
 const selectedPeriod = ref<string>("all");
 
