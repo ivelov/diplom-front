@@ -10,4 +10,7 @@
 .justify-content-between{
   justify-content: space-between;
 }
+.justify-content-right{
+  justify-content: right;
+}
 </style>

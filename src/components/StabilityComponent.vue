@@ -5,17 +5,39 @@
     <v-card class="py-3 px-3">
       <v-row class="justify-content-between px-3 py-3">
         <h2 class="mb-2">Stability chart</h2>
-        <div style="width: 200px">
-          <v-select v-model="selectedAssetId" :items="assets" variant="outlined" density="compact"></v-select>
+        <div style="width: 450px" class="mt-2 mr-2">
+          <v-row class="justify-content-right">
+            <div style="width: 200px" class="mr-2">
+              <v-select
+                v-model="selectedPeriod"
+                :items="periods"
+                variant="outlined"
+                density="compact"
+              ></v-select>
+            </div>
+            <div style="width: 200px">
+              <v-select
+                v-model="selectedAssetId"
+                :items="assets"
+                variant="outlined"
+                density="compact"
+              ></v-select>
+            </div>
+          </v-row>
         </div>
       </v-row>
       <StabilityChart
         v-if="stabilityChartData?.length > 0 && selectedAssetIndex !== -1"
         :asset="selectedAssetId"
-        :data="stabilityChartData[selectedAssetIndex].periods.all.data"
-        :average="stabilityChartData[selectedAssetIndex].periods.all.cost"
+        :data="
+          stabilityChartData[selectedAssetIndex].periods[selectedPeriod].data
+        "
+        :average="
+          stabilityChartData[selectedAssetIndex].periods[selectedPeriod].cost
+        "
         :deviation="
-          stabilityChartData[selectedAssetIndex].periods.all.standardDeviation
+          stabilityChartData[selectedAssetIndex].periods[selectedPeriod]
+            .standardDeviation
         "
       ></StabilityChart>
     </v-card>
@@ -38,6 +60,14 @@ const store = useAppStore();
 const { stabilityChartData } = storeToRefs(store);
 
 const selectedAssetId = ref<string>();
+
+const periods = ref([
+  { value: "all", title: "all time" },
+  { value: "years1", title: "1 year" },
+  { value: "years2", title: "2 years" },
+  { value: "years3", title: "3 years" },
+]);
+const selectedPeriod = ref<string>("all");
 
 const assets = computed(() => {
   return stabilityChartData.value.map((val) => val.id);
