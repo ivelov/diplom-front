@@ -183,7 +183,7 @@
       </li>
     </ul>
 
-    <p class="mt-8">
+    <p class="my-8">
       See also: <RouterLink to="investment-tips">investment tips</RouterLink>
     </p>
   </v-container>

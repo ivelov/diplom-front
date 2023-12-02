@@ -129,7 +129,7 @@
       projects can be a prudent strategy.
     </p>
 
-    <p class="mt-8">
+    <p class="my-8">
       See also: <RouterLink to="investment-mistakes">investment mistakes</RouterLink>
     </p>
   </v-container>

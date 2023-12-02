@@ -78,7 +78,9 @@ const dataset2 = ref({
 
 watch(props, (newProps) => {
   dataset1.value.data = newProps.first.map((value) => value.y);
+  dataset1.value.label = newProps.firstTitle
   dataset2.value.data = newProps.second.map((value) => value.y);
+  dataset2.value.label = newProps.secondTitle
   chartData.value = {
     labels: labels.value,
     datasets: [dataset1.value, dataset2.value],

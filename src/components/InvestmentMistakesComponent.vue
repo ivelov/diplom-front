@@ -141,7 +141,7 @@
       and ensure accuracy before proceeding with any transaction.
     </p>
 
-    <p class="mt-8">
+    <p class="my-8">
       See also: <RouterLink to="investment-tips">investment tips</RouterLink>
     </p>
   </v-container>

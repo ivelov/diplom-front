@@ -2,7 +2,8 @@
   <v-container>
     <h2 class="mb-4">Stability comparison</h2>
     <p class="mb-2">
-      This chart allows you to see the difference between assets in terms of stability:
+      This chart allows you to see the difference between assets in terms of
+      stability:
     </p>
 
     <v-card class="py-3 px-3">
@@ -38,7 +39,11 @@
         </div>
       </v-row>
       <StabilityComparisonChart
-        v-if="stabilityChartData?.length > 0 && selectedAssetIndex1 !== -1 && selectedAssetIndex2 !== -1"
+        v-if="
+          stabilityChartData?.length > 0 &&
+          selectedAssetIndex1 !== -1 &&
+          selectedAssetIndex2 !== -1
+        "
         :first="
           stabilityChartData[selectedAssetIndex1].periods[selectedPeriod].data
         "
@@ -47,9 +52,11 @@
           stabilityChartData[selectedAssetIndex2].periods[selectedPeriod].data
         "
         :second-title="stabilityChartData[selectedAssetIndex2].id"
-
       ></StabilityComparisonChart>
     </v-card>
+    <p class="my-8">
+      See also: <RouterLink to="investment-tips">investment tips</RouterLink>
+    </p>
   </v-container>
 </template>
 
