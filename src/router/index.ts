@@ -38,6 +38,11 @@ const routes = [
         name: 'Stability',
         component: () => import('@/pages/Stability.vue'),
       },
+      {
+        path: '/supply',
+        name: 'Supply',
+        component: () => import('@/pages/Supply.vue'),
+      },
     ],
   },
 ]

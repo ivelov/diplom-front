@@ -11,7 +11,7 @@
         <h2 class="mb-2">Stability comparison chart</h2>
         <div style="width: 450px" class="mt-2 mr-2">
           <v-row class="justify-content-right">
-            <div style="width: 100px" class="mr-2">
+            <div style="width: 130px" class="mr-2">
               <v-select
                 v-model="selectedPeriod"
                 :items="periods"
@@ -19,7 +19,7 @@
                 density="compact"
               ></v-select>
             </div>
-            <div style="width: 100px" class="mr-2">
+            <div style="width: 130px" class="mr-2">
               <v-select
                 v-model="selectedAssetId1"
                 :items="assets"
@@ -27,7 +27,7 @@
                 density="compact"
               ></v-select>
             </div>
-            <div style="width: 100px">
+            <div style="width: 130px">
               <v-select
                 v-model="selectedAssetId2"
                 :items="assets"
@@ -47,11 +47,11 @@
         :first="
           stabilityChartData[selectedAssetIndex1].periods[selectedPeriod].data
         "
-        :first-title="stabilityChartData[selectedAssetIndex1].id"
+        :first-title="stabilityChartData[selectedAssetIndex1].title"
         :second="
           stabilityChartData[selectedAssetIndex2].periods[selectedPeriod].data
         "
-        :second-title="stabilityChartData[selectedAssetIndex2].id"
+        :second-title="stabilityChartData[selectedAssetIndex2].title"
       ></StabilityComparisonChart>
     </v-card>
     <p class="my-8">
@@ -83,7 +83,10 @@ const periods = ref([
 const selectedPeriod = ref<string>("all");
 
 const assets = computed(() => {
-  return stabilityChartData.value.map((val) => val.id);
+  return stabilityChartData.value.map((val) => ({
+    value: val.id,
+    title: val.title,
+  }));
 });
 
 const selectedAssetIndex1 = computed(() => {

@@ -1,10 +1,14 @@
 import AssetsService from "@/api/services/Assets";
-import StabilityService, { StabilityCalculatorParams } from "@/api/services/Stability";
+import StabilityService, {
+  StabilityCalculatorParams,
+} from "@/api/services/Stability";
+import TimestampDataService from "@/api/services/TimestampData";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export interface StabilityChartData {
   id: string;
+  title: string;
   periods: PeriodsData;
 }
 
@@ -23,8 +27,23 @@ export interface StabilityCalculatorData {
   medianContinuousTime: number;
 }
 
+export interface CoinmetricsDataDto {
+  CapAct1yrUSD: number;
+  PriceUSD: number;
+  SplyAct1yr: number;
+  TxTfrCnt: number;
+  TxTfrValAdjUSD: number;
+  VelCur1yr: number;
+}
+export interface TimestampData {
+  timestamp: number;
+  assets: {
+    [asset: string]: CoinmetricsDataDto;
+  };
+}
+
 export const useAppStore = defineStore("app", () => {
-  const assets = ref<{id: string; title: string}[]>([]);
+  const assets = ref<{ id: string; title: string }[]>([]);
   const stabilityChartData = ref<StabilityChartData[]>([]);
   const stabilityCalculatorData = ref<StabilityCalculatorData>({
     instances: 0,
@@ -32,8 +51,12 @@ export const useAppStore = defineStore("app", () => {
     overallTime: 0,
     medianContinuousTime: 0,
   });
+  const timestampData = ref<TimestampData[]>([]);
 
   const getAssets = async () => {
+    if (assets.value.length > 0) {
+      return assets.value;
+    }
     const data = await AssetsService.getAssets();
     assets.value = data;
     return data;
@@ -45,9 +68,17 @@ export const useAppStore = defineStore("app", () => {
     return data;
   };
 
-  const getStabilityCalculatorData = async (params: StabilityCalculatorParams) => {
+  const getStabilityCalculatorData = async (
+    params: StabilityCalculatorParams
+  ) => {
     const data = await StabilityService.getStabilityCalculatorData(params);
     stabilityCalculatorData.value = data;
+    return data;
+  };
+
+  const getTimestampData = async () => {
+    const data = await TimestampDataService.getData();
+    timestampData.value = data;
     return data;
   };
 
@@ -55,8 +86,10 @@ export const useAppStore = defineStore("app", () => {
     assets,
     stabilityChartData,
     stabilityCalculatorData,
+    timestampData,
     getStabilityChartData,
     getStabilityCalculatorData,
     getAssets,
+    getTimestampData,
   };
 });

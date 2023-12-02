@@ -31,9 +31,8 @@
             title="Statistics"
           ></v-list-item>
         </template>
+        <v-list-item link title="Supply" to="supply"></v-list-item>
         <v-list-item link title="Stability" to="stability"></v-list-item>
-        <v-list-item link title="List Item 2"></v-list-item>
-        <v-list-item link title="List Item 3"></v-list-item>
       </v-list-group>
     </v-list>
   </v-navigation-drawer>
