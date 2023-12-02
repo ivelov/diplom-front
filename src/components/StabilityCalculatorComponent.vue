@@ -2,8 +2,18 @@
   <v-container>
     <h2 class="mb-2">Stability calculator</h2>
     <p class="mb-2">
-      This stability calculator shows the total number of days an asset's value
-      has been above/below a specified limit.
+      The calculator shows how many times the stablecoin's price moved beyond,
+      below, or both above and below the chosen threshold. "Instances" denotes
+      the total count of deviations from the stablecoin's target value,
+      irrespective of each deviation's duration. "Overall time" refers to the
+      total duration of all deviations outside the specified range. "Continuous
+      time" details the duration of each instance by counting the consecutive
+      number of hours during which the stablecoin's price stayed above, below,
+      or fluctuated around (both above and below) the set threshold. For
+      instance, it could indicate two consecutive hours, three consecutive
+      hours, and so on. "Maximum" represents the longest duration recorded for a
+      single instance, while "Median" signifies the average duration (measured
+      in hours) of these deviations.
     </p>
     <v-card class="py-5 px-3">
       <v-row class="justify-content-between px-3 py-3 align-items-center">
@@ -15,6 +25,7 @@
             density="compact"
             label="Asset"
             hide-details
+            item-value="id"
           ></v-select>
         </div>
         <div style="width: 200px" class="mr-2">
@@ -47,7 +58,9 @@
             hide-details
           ></v-select>
         </div>
-        <v-btn color="green" @click="getData" :loading="loading">Calculate</v-btn>
+        <v-btn color="green" @click="getData" :loading="loading"
+          >Calculate</v-btn
+        >
       </v-row>
       <v-row class="px-3 py-3 justify-content-around">
         <v-card class="px-3 py-3"
@@ -66,9 +79,6 @@
         >
       </v-row>
     </v-card>
-    <p class="mt-8">
-      See also: <RouterLink to="investment-tips">investment tips</RouterLink>
-    </p>
   </v-container>
 </template>
 
@@ -109,15 +119,17 @@ const percentages = ref([
 const selectedPercentage = ref<string>("0.5");
 
 function getData() {
-  loading.value = true
-  store.getStabilityCalculatorData({
-    asset: selectedAssetId.value,
-    condition: selectedCondition.value,
-    percentage: selectedPercentage.value,
-    period: selectedPeriod.value,
-  }).then(()=>{
-    loading.value = false
-  })
+  loading.value = true;
+  store
+    .getStabilityCalculatorData({
+      asset: selectedAssetId.value,
+      condition: selectedCondition.value,
+      percentage: selectedPercentage.value,
+      period: selectedPeriod.value,
+    })
+    .then(() => {
+      loading.value = false;
+    });
 }
 
 onMounted(() => {
