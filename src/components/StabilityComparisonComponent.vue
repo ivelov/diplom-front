@@ -55,7 +55,7 @@
       ></StabilityComparisonChart>
     </v-card>
     <p class="my-8">
-      See also: <RouterLink to="investment-tips">investment tips</RouterLink>
+      See also: <RouterLink to="supply">supply statistics</RouterLink>
     </p>
   </v-container>
 </template>

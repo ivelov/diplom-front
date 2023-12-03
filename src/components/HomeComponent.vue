@@ -50,6 +50,20 @@
       <v-col>
         <v-card class="py-2 px-2">
           <h3>See the statistics</h3>
+          <v-list>
+            <v-list-item
+              prepend-icon="mdi-circle-small"
+              link
+              to="/supply"
+              title="Supply"
+            ></v-list-item>
+            <v-list-item
+              prepend-icon="mdi-circle-small"
+              link
+              to="/stability"
+              title="Stability"
+            ></v-list-item>
+          </v-list>
         </v-card>
       </v-col>
     </v-row>
